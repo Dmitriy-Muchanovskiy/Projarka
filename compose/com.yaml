@@ -13,19 +13,22 @@ services:
   back:
     image: python:3
     restart: always
-    WORKDIR /usr/src/app
-    COPY back/requirements.txt ./
-    RUN pip3 install --no-cache-dir -r requirements.txt
-    COPY back/* ./
-    CMD [ "python3", "./api.py" ]
-    EXPOSE 8888
+    environment:
+      WORKDIR: /usr/src/app
+    volumes:
+      - back/requirements.txt:./
+      - back/*:./
+    command: bash -c > "
+        pip3 install --no-cache-dir -r requirements.txt
+        && python3 ./api.py"
+    
     
  front:
     image: nginx
     restart: always
     volumes:
-      - front/index.html /usr/share/nginx/html
+      - front/index.html:/usr/share/nginx/html
     ports:
-      - "5000:5000"
-    EXPOSE 80
+      - "8080:80"
+ 
  
