@@ -2,11 +2,30 @@ version: "3.9"
     
 services:
   db:
-    image: mariaDB:10
-
+    image: mariaDB:10.1
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootdb
       MYSQL_DATABASE: projarka
       MYSQL_USER: user
       MYSQL_PASSWORD: user
+ 
+  back:
+    image: python:3
+    restart: always
+    WORKDIR /usr/src/app
+    COPY back/requirements.txt ./
+    RUN pip3 install --no-cache-dir -r requirements.txt
+    COPY back/* ./
+    CMD [ "python3", "./api.py" ]
+    EXPOSE 8888
+    
+ front:
+    image: nginx
+    restart: always
+    volumes:
+      - front/index.html /usr/share/nginx/html
+    ports:
+      - "5000:5000"
+    EXPOSE 80
+ 
