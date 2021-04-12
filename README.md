@@ -6,7 +6,7 @@
 Используется стандратный порт 3306
 
 Backend
-Поднят на Python:latest, используется библиотеки Flask, Flask-cors, mysql.connector, mysql-connector-python
+Поднят на Python, используется библиотеки Flask, Flask-cors, mysql.connector, mysql-connector-python
 Взят рендомный порт 8888, мапит этот же порт на 8888 порт хоста, по причине проблемы с Frontend'ом, описанными ниже.
 
 Frontend
