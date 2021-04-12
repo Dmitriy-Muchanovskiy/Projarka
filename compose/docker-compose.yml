@@ -13,22 +13,18 @@ services:
 
   back:
     build: ./docker/backend
-    restart: always
+    restart: "no"
     container_name: projarka-back
     working_dir: /usr/src/app
     command: python3 api.py
     ports:
       - "8888:8888"
 
-
-    
-    
- front:
+  front:
     image: nginx
     restart: always
+    container_name: projarka_front
     volumes:
-      - front/index.html:/usr/share/nginx/html
+      - ./front/:/usr/share/nginx/html
     ports:
       - "8080:80"
- 
- 
