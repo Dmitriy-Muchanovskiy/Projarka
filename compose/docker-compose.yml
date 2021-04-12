@@ -1,26 +1,26 @@
 version: "3.9"
-    
+
 services:
   db:
-    image: mariaDB:10.1
+    image: mariadb:10.1
     restart: always
+    container_name: projarka-db
     environment:
       MYSQL_ROOT_PASSWORD: rootdb
       MYSQL_DATABASE: projarka
       MYSQL_USER: user
       MYSQL_PASSWORD: user
- 
+
   back:
-    image: python:3
+    build: ./docker/backend
     restart: always
-    environment:
-      WORKDIR: /usr/src/app
-    volumes:
-      - back/requirements.txt:./
-      - back/*:./
-    command: bash -c > "
-        pip3 install --no-cache-dir -r requirements.txt
-        && python3 ./api.py"
+    container_name: projarka-back
+    working_dir: /usr/src/app
+    command: python3 api.py
+    ports:
+      - "8888:8888"
+
+
     
     
  front:
