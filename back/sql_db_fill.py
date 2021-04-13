@@ -10,7 +10,7 @@ projarka = Table('first', metadata,
   Column('first_text', String),
 )
 
-engine = create_engine('mysql://root:rootdb@projarka-db/projarka')
+engine = create_engine('mysql://user:user@projarka-db/projarka')
 metadata.create_all(engine)
 
 with engine.connect() as con:
