@@ -14,14 +14,10 @@ projarka = Table('first', metadata,
 engine = create_engine('mysql://root:rootdb@projarka-db/projarka')
 metadata.create_all(engine)
 
-
 with engine.connect() as con:
+  select = con.execute("insert into first(id,first_text,sec_text) values('1','This is the projarka-test!', 'This is the projarka sec-text!')")
 
-    data = ( { "id": 1, "first": "This is the projarka-test!", "primary_author": "This is the projarka sec-text!" }    )
 
-    statement = text("""INSERT INTO book(id, first_text, sec_text) VALUES(:id, :first_text, :sec_text)""")
 
-    for line in data:
-        con.execute(statement, **line)
 
 
