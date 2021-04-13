@@ -24,10 +24,4 @@ with engine.connect() as con:
     for line in data:
         con.execute(statement, **line)
 
-        
-    select = con.execute('SELECT first_text FROM first')
 
-print(f"result of first query is \n {select}")
-
-pattern=r"([\w\s-]+!)"
-text=re.search(pattern,str(select))
