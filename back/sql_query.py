@@ -1,4 +1,6 @@
 import sqlalchemy
+import re
+
 
 engine = create_engine('mysql://root:rootdb@projarka-db/projarka')
 
