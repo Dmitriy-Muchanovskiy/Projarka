@@ -43,6 +43,7 @@ stop:
 	@echo "Stop Docker-compose and delete images"
 	@docker-compose down
 	@docker rmi -f docker_back
+	@docker rmi -f projarka_back
 	@echo "Stoping and deleting is finished"
 
 database:
