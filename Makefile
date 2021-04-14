@@ -16,14 +16,8 @@ export HELP_MESSAGE
 help:
 	@echo "$${HELP_MESSAGE}" 
 
-deploy:
-	@echo "------- Start deploy -------"
-	@echo "Hello Everebody!!"
-	@echo "Please wait"
-	database
-	backend
-	frontend
-	@echo "Deploying Finished"
+deploy:	database backend frontend
+	@echo "Deploying is finished successfuly"
 
 
 migrate:
@@ -37,7 +31,7 @@ migrate:
 upgrade:
 	@echo "------- Start BD update  -------"
 	@docker exec -d projarka-back sh -c "python3 migrate.py db upgrade"
-	@echo "Updating of DB is finished"
+	@echo "Upgrading of DB Tables is finished"
 
 downgrade:
 	@echo "------- Start BD downgrade -------"
