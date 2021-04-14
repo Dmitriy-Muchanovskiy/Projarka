@@ -1,6 +1,0 @@
-
-FROM mariadb:10.1
-ENV MYSQL_ROOT_PASSWORD="rootdb"
-COPY db/ /db/
-EXPOSE 3306
-
