@@ -1,0 +1,21 @@
+<html>
+<body>
+
+<h1 id="text"></h1>
+
+<script>
+        var stripe, ask;
+	var url= 'http://192.168.88.11:8888/';
+        var req=new XMLHttpRequest();
+        req.open("get",url);
+        req.responseType = 'json';
+        req.onload=function(){
+                document.getElementById("text").innerHTML = req.response.response;
+        }
+        req.send();
+
+</script>
+
+</body>
+</html>
+
