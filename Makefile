@@ -20,11 +20,9 @@ deploy:
 	@echo "------- Start deploy -------"
 	@echo "Hello Everebody!!"
 	@echo "Please wait"
-	@docker-compose up -d db
-	@bash "docker/db/sleep.sh"
-	@docker exec -d projarka-db sh -c "bash /db/db-create.sh"
-	@docker-compose up -d back
-	@docker-compose up -d front
+	database
+	backend
+	frontend
 	@echo "Deploying Finished"
 
 
@@ -53,3 +51,13 @@ stop:
 	@docker rmi -f docker_back
 	@echo "Stoping and deleting is finished"
 
+database:
+	@docker-compose up -d db
+	@bash "docker/db/sleep.sh"
+	@docker exec -d projarka-db sh -c "bash /db/db-create.sh"
+
+backend:
+	@docker-compose up -d back
+
+frontend:
+	@docker-compose up -d front
