@@ -5,10 +5,10 @@ Usage:
 Commands:
 	help
 	deploy
-	migrate
-	upgrade
-	downgrade
-	stop
+	update
+	restore
+	delete_containers
+	delete_images 
 endef 
 
 export HELP_MESSAGE 
@@ -16,43 +16,38 @@ export HELP_MESSAGE
 help:
 	@echo "$${HELP_MESSAGE}" 
 
-deploy:	database backend frontend
-	@echo "Deploying is finished successfuly"
+deploy:
+	@echo "------- Start deploy -------"
+	@echo "Hello Everebody!!"
+	@echo "Please wait"
+	@bash "sh/doc-net-image-cont-db_create.sh"
+	@bash "sh/doc-back.sh"
+	@bash "sh/doc-front.sh"
+	@echo "Deploying Finished"
 
 
-migrate:
-	@echo "------- Start init DB   -------"
-	@docker exec -d projarka-back sh -c "python3 migrate.py db init"
-	@echo "Stage of DB init successful"
-	@echo "------- Start migrate -------------"
-	@docker exec -d projarka-back sh -c "python3 migrate.py db migrate"
-	@echo Stage of DB migrate finished
+front:
+	@echo "------- Start front  -------"
+	@bash sh/doc-front.sh
+	@echo "front of database table is finished"
 
-upgrade:
-	@echo "------- Start BD update  -------"
-	@docker exec -d projarka-back sh -c "python3 migrate.py db upgrade"
-	@echo "Upgrading of DB Tables is finished"
 
-downgrade:
-	@echo "------- Start BD downgrade -------"
-	@docker exec -d projarka-back sh -c "python3 migrate.py db downgrade"
+update:
+	@echo "------- Start update DB  -------"
+	@bash sh/doc-db-update.sh
+	@echo "Changing of database table is finished"
+
+restore:
+	@echo "------- Start restore DB -------"
+	@bash sh/doc-db-restore.sh
+	@echo "Restoring of database table is finished"
+
+delete_containers:
+	@echo "------- Start deleting containers -------"
+	@bash sh/doc-delete-cont.sh
 	@echo "Deleting of containers is finished"
 
-stop:
-	@echo "------- Stop Docker and delete -------"
-	@echo "Stop Docker-compose and delete images"
-	@docker-compose down
-	@docker rmi -f docker_back
-	@docker rmi -f projarka_back
-	@echo "Stoping and deleting is finished"
-
-database:
-	@docker-compose up -d db
-	@bash "docker/db/sleep.sh"
-	@docker exec -d projarka-db sh -c "bash /db/db-create.sh"
-
-backend:
-	@docker-compose up -d back
-
-frontend:
-	@docker-compose up -d front
+delete_images:
+	@echo "------- Start deleting images -------"
+	@bash sh/doc-delete-images.sh
+	@echo "Deleting of images is finished"

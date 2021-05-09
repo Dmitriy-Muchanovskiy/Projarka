@@ -1,0 +1,42 @@
+version: "3.9"
+    
+services:
+  db:
+    image: mariadb
+    restart: always
+    container_name: projarka-db
+    networks:
+      - projarka
+    environment:
+      MYSQL_ROOT_PASSWORD: rootdb
+      MYSQL_DATABASE: projarka
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      
+  back:
+    build: ./docker/backend
+    restart: "no"
+    container_name: projarka-back
+    networks:
+      - projarka
+    working_dir: /usr/src/app
+    command: python3 debug.py
+    ports:
+      - "8888:8888"
+      - "8887:8887"
+
+  front:
+    image: nginx
+    restart: always
+    container_name: projarka-front
+    networks:
+      - projarka
+    volumes:
+      - ./docker/frontend/:/usr/share/nginx/html
+    ports:
+      - "8080:80"
+
+networks:
+   projarka:
+    # Use a custom driver
+
